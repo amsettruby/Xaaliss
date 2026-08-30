@@ -1,0 +1,213 @@
+:root {
+  --main-background: #0a0e14;
+  --form-background: #12181f;
+  --main-text: #edf1f5;
+  --secondary-text: #7c8896;
+  --wallet-icon-background: rgba(58, 221, 142, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--main-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  font-family: sans-serif;
+}
+
+.main {
+  height: 70%;
+  /* background-color: green; */
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.head {
+  height: 25%;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+section.head div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  text-align: center;
+}
+
+.head div div.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--wallet-icon-background);
+  height: 45%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(58, 221, 142, 0.16);
+  border-radius: 20px;
+}
+
+h2 {
+  color: var(--main-text);
+  margin-bottom: 10px;
+}
+
+h2 + span {
+  color: var(--secondary-text);
+}
+
+.formulaires {
+  height: 60%;
+  width: 80%;
+  /* background-color: yellow; */
+}
+
+.formulaires div.form {
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--form-background);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+}
+
+input {
+  border: none;
+  background-color: transparent;
+  height: 100%;
+  width: 80%;
+  /* padding-left: 5px; */
+  color: var(--secondary-text);
+}
+
+.form form {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.secondary-text {
+  color: var(--secondary-text);
+  font-weight: bold;
+}
+
+form div {
+  height: 30%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+form div div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+div.login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #3add8e;
+  border-radius: 10px;
+  color: black;
+  width: 80%;
+  height: 20%;
+}
+
+input[type="submit"] {
+  font-weight: bold;
+  margin: 5px;
+  color: black;
+  width: 100%;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+.login:hover {
+  cursor: pointer;
+}
+
+i.bi-arrow-right {
+  font-weight: bolder;
+}
+
+.notif {
+  height: 8%;
+  background-color: var(--wallet-icon-background);
+  border-left: 2px solid #3add8e;
+  border-radius: 5px;
+  color: #3add8e;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  padding-left: 10px;
+  font-weight: bolder;
+  margin-bottom: 20px;
+}
+
+input:focus {
+  border: none;
+  outline: none;
+  caret-color: var(--main-text);
+}
+
+i.bi-eye:hover {
+  cursor: pointer;
+}
+
+i.bi-eye-slash:hover {
+  cursor: pointer;
+}
+
+.forgotpasswd:hover {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 500px) {
+  .formulaires {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 730px) {
+  .formulaires {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .formulaires {
+    width: 40%;
+  }
+}
