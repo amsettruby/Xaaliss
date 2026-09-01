@@ -1,3 +1,7 @@
+<?php
+    require_once '../includes/fonction.php';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,44 +23,20 @@
             </div>
         </div>
     </div> -->
-    <!-- <div class="modal">
-        <div class="modalTitle">
-            <h2 class="main-text" style="font-size: 1.3rem">Ajouter une dette</h2>
-            <div class="cross">
-                <i class="bi bi-x secondary-text"></i>
-            </div>
-        </div>
-        <section class="modal-actions">
-            <div class="modal-actions-group">
-                <div class="modal-dettes">Dettes</div>
-                <div class="modal-creance" >Créances</div>
-            </div>
-        </section>
-        <section class="modal-user">
-            <div class="input-group">
-                <label for="name">Nom de la personne</label>
-                <div class="input-field name">
-                    <i class="bi bi-person" style="margin: 10px"></i>
-                    <input type="text" name="nom" id="name" placeholder="Entrez le nom de la personne" class="secondary-text">
-                </div>
-            </div>
-            <div class="input-group">
-                <label for="amount">Montant</label>
-                <div class="input-field amount">
-                    <i class="bi bi-cash" style="margin: 10px"></i>
-                    <input type="text" name="montant" id="amount" placeholder="Entrez le montant" class="secondary-text">
-                </div>
-            </div>
-        </section>
-        <div class="controls">
-            <div class="cancel secondary-text">
-                <input type="submit" value="Annuler" name="cancel_add">   
-            </div>
-            <div class="submit">
-                <input type="submit" value="Ajouter" name="add" style="color: black">
-            </div>
-        </div>
-    </div> -->
+    <?php
+        if(isset($addCreance) && $addCreance === true) {
+            // header("Location: dashboard.php?creances=Creances");
+            addCreances();
+            // exit;
+        }
+
+        if($addDebt) {
+            addDebts();
+            // header("Location: dashboard.php");
+            // exit;
+        }
+    ?>
+
     <!-- <div class="edited" id="edited">
         <div class="check">
             <i class="bi bi-check-circle" style="font-size: 12px; color: #3ADD8E"></i>
@@ -141,58 +121,82 @@
 
         <section class="actions">
             <div class="actions-group">
-                <div class="dettes">Dettes</div>
-                <div class="creance">Créances</div>
+                <div class="dettes">
+                    <form action="dashboard.php" method="get" style="height: 100%; width: 100%">
+                        <input type="submit" value="Dettes" name='dettes'>
+                    </form>
+                </div>
+                <div class="creance">
+                    <form action="dashboard.php" method="get" style="height: 100%; width: 100%">
+                        <input type="submit" value="Creances" name='creances' id="creance">
+                    </form>
+                </div>
             </div>
             <div class="add">
-                <input type="submit" value="Ajouter" name="ajouter-dette" style="color: black; font-weight: bolder">
+                <form action="dashboard.php" method="POST" style="height: 100%; width: 100%">
+                    <input type="submit" value="Ajouter" name="ajouter-dette" style="color: black; font-weight: bolder" id='ajouter'>
+                </form>
             </div>
         </section>
 
         <?php
 
-            if(isset($debtData) && $nodebt == false) {
-                echo '<section class="data">';
-                echo '<section class="data-group">';
-                foreach($debtData as $debt) {
-                    echo '<div class="user">';
-                    echo '<div class="initials main-text" style="font-size: 12px">';
-                    echo '<div class="initials main-text" style="font-size: 12px"><i class="bi bi-person"></i></div>';
-                    echo '<div class="fullname main-text" style="font-size: 12px">';
-                    echo $debt['nom'];
-                    echo '/div>';
-                    echo '<div class="montant main-text" style="font-size: 12px">';
-                    echo $debt['montant'];
-                    echo '</div>';
-                    echo '<div class="edit bg-grey"><i class="bi bi-pencil secondary-text" style="font-size: 14px"></i></div>';
-                    echo '<div class="delete bg-grey"><i class="bi bi-trash secondary-text" style="font-size: 14px"></i></div>';
-                    echo '</div>';
-                }
-                echo '</section>';
-                echo '</section>';
-
+            if($changeToCreance) {
+                changeToCreances($creanceData, $nocreance);
             }
 
+            if(isset($currentActive) && $currentActive == 'dettes') {
+                if(isset($debtData) && $nodebt == false) {
+                    echo '<section class="data" id="data">';
+                    echo '<section class="data-group">';
+                    foreach($debtData as $debt) {
+                        echo '<div class="user" id="' . $debt['id'] .'">
+                        <div class="initials main-text" style="font-size: 12px"><i class="bi bi-person"></i></div>
+                        <div class="fullname main-text" style="font-size: 12px">'.$debt['nom'].'</div>
+                        <div class="montant main-text" style="font-size: 12px">'.$debt['montant'].' F</div>
+                        <div class="edit bg-grey"><i class="bi bi-pencil secondary-text" style="font-size: 14px"></i></div>
+                        <div class="delete bg-grey"><i class="bi bi-trash secondary-text" style="font-size: 14px"></i></div>
+                    </div>';      
+                    }
+                    echo '</section>';
+                    echo '</section>';
+                } else {
+                    echo '<section class="data">
+                    <section class="data-group">
+                        Aucune Dette. Enregistrez en une.
+                    </section>
+                </section>';
+                }
+            } else if(isset($currentActive) && $currentActive == 'creances') {
+                if(isset($creanceData) && $nocreance == false) {
+                    echo '<section class="data" id="data">';
+                    echo '<section class="data-group">';
+                    foreach($creanceData as $creance) {
+                        echo $creance['id'];
+                        echo '<div class="user" id="' . $creance['id'] .'">
+                                <div class="initials main-text" style="font-size: 12px">
+                                    <i class="bi bi-person"></i>
+                                </div>
+                                <div class="fullname main-text" style="font-size: 12px">'
+                                    . $creance['nom'] . 
+                                '</div>
+                                <div class="montant main-text" style="font-size: 12px"> ' 
+                                    .$creance['montant'] .
+                                ' F</div>
+                                <div class="edit bg-grey">
+                                    <i class="bi bi-pencil secondary-text" style="font-size: 14px"></i>
+                                </div>
+                                <div class="delete bg-grey">
+                                    <i class="bi bi-trash secondary-text" style="font-size: 14px"></i>
+                                </div>
+                            </div>';      
+                    }
+                    echo '</section>';
+                    echo '</section>';
+                }
+            }
         ?>
-        <!-- <section class="data">
-            <section class="data-group">
-                <div class="user">
-                    <div class="initials main-text" style="font-size: 12px"><i class="bi bi-person"></i></div>
-                    <div class="fullname main-text" style="font-size: 12px">Boubacar Diallo<
-                    <div class="montant main-text" style="font-size: 12px">500F</div>
-                    <div class="edit bg-grey"><i class="bi bi-pencil secondary-text" style="font-size: 14px"></i></div>
-                    <div class="delete bg-grey"><i class="bi bi-trash secondary-text" style="font-size: 14px"></i></div>
-                </div>
-                <div class="user">
-                    <div class="initials main-text reduced-font" style="font-size: 12px">BD</div>
-                    <div class="fullname main-text" style="font-size: 12px">Boubacar Diallo</div>
-                    <div class="montant main-text" style="font-size: 12px">500F</div>
-                    <div class="edit bg-grey"><i class="bi bi-pencil secondary-text" style="font-size: 14px"></i></div>
-                    <div class="delete bg-grey"><i class="bi bi-trash secondary-text" style="font-size: 14px"></i></div>
-                </div>
-            </section>
-        </section> -->
     </section>
-    <script src="../assets/js/dashboard.js"></script>
+    <script defer src="../assets/js/dashboard.js"></script>
 </body>
 </html>
