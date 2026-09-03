@@ -15,6 +15,7 @@
         if($utilisateur != false && password_verify($passwd, $utilisateur['passwd'])) {
             if(session_status() === PHP_SESSION_NONE) session_start();
             $_SESSION["id"] = $utilisateur['id'];
+            // $_SESSION['disconnect'] = false;
             header("Location: ../public/dashboard.php");
             exit();
         } else {

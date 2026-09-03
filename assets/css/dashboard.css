@@ -176,8 +176,6 @@ div.actions-group {
 }
 
 .dettes {
-  border: 1px solid #ff6b5b;
-  background-color: rgba(255, 107, 91, 0.12);
   height: 80%;
   width: 45%;
   border-radius: 10px;
@@ -186,13 +184,16 @@ div.actions-group {
 }
 
 .creance {
-  border: 1px solid #3add8e;
-  background-color: rgba(58, 221, 142, 0.12);
   height: 80%;
-  width: 45%;
+  width: 50%;
   border-radius: 10px;
   text-align: center;
   align-content: center;
+}
+
+.active {
+  background-color: rgba(63, 74, 69, 0.546);
+
 }
 
 div.add {
@@ -264,7 +265,11 @@ div.bg-grey {
   border-radius: 50%;
 }
 
-.modal {
+.edit-modal {
+  display: flex;
+}
+
+.creance-modal, .dette-modal, .edit-modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -274,7 +279,7 @@ div.bg-grey {
   background-color: var(--form-background);
   border-radius: 10px;
   border: 1px solid var(--borders);
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   padding: 10px;
@@ -291,7 +296,7 @@ div.bg-grey {
 }
 
 .cross {
-  height: 70%;
+  height: 100%;
   text-align: center;
   align-content: center;
   aspect-ratio: 1/1;
@@ -435,6 +440,23 @@ input {
   margin-top: 30px;
 }
 
+.added {
+  width: 90%;
+  height: 7%;
+  background-color: rgba(58, 221, 142, 0.12);
+  border-radius: 10px;
+  border: 1px solid #3add8e;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  margin-top: 30px;
+}
+
 .deleted {
   width: 90%;
   height: 10%;
@@ -475,7 +497,7 @@ input {
 }
 
 .disconnect {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
@@ -528,4 +550,22 @@ input {
 
 .yes input:hover, .no input:hover {
   cursor: pointer;
+}
+
+.delete-dette {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  height: 10%;
+  background-color: var(--form-background);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 20px;
+  border: 1px solid var(--borders);
+  border-radius: 10px;
+  /* padding: 10px; */
 }
