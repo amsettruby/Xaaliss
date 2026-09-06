@@ -35,53 +35,18 @@ function changeToCreances($creanceData, $nocreance) {
     }
 }
 
-function addDebts() {
-    echo '
-        ';
+function generateToken() {
+    $chars = array_merge(
+        range('A', 'Z'),
+        range('a', 'z'),
+        range('0', '9')
+    );
 
-    echo "<script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const close = document.getElementById('close');
-                // console.log(close);
-                if(close) {
-                    close.addEventListener('click', function () {
-                        const modal = document.getElementById('modal');
-                        modal.remove();
-                        window.location.href = 'dashboard.php';
-                    })
-                }
+    $token = "";
 
-                const cancelBtn = document.getElementById('cancel');
-                cancelBtn.addEventListener('click', function () {
-                    const modal = document.getElementById('modal');
-                    modal.remove()
-                    window.location.href = 'dashboard.php';
-                })
-            })
-        </script>";
-}
-
-        
-function addCreances() {
-    echo '';
-
-    echo "<script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const close = document.getElementById('close');
-                if(close) {
-                    close.addEventListener('click', function () {
-                        const modal = document.getElementById('modal');
-                        modal.remove();
-                        window.location.href = 'dashboard.php?creances=Creances';
-                    })
-                }
-
-                const cancelBtn = document.getElementById('cancel');
-                cancelBtn.addEventListener('click', function () {
-                    const modal = document.getElementById('modal');
-                    modal.remove()
-                    window.location.href = 'dashboard.php?creances=Creances';
-                })
-            })
-        </script>";
+    for($i = 0; $i < 20; $i++) {
+        $n = rand(0, 61);
+        $token .= $chars[$n];
+    }
+    return $token;
 }

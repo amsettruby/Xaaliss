@@ -35,7 +35,7 @@
               <label for="mail" class="secondary-text">Adresse e-mail </label>
               <div class="mail">
                 <i class="bi bi-envelope secondary-text"></i>
-                <input type="email" name="mail" id="mail" class="form-control" placeholder="example@gmail.com" class="secondary-text" required/>
+                <input type="email" name="mail" id="mail" class="form-control secondary-text" placeholder="example@gmail.com" required/>
               </div>
             </div>
 
@@ -57,7 +57,11 @@
                 unset($_SESSION['error']);
               }
             ?>
-            <div class="forgotpasswd" style="color: #3ADD8E">Mot de passe oublié ?</div>
+            <div class="forgotpasswd" style="color: #3ADD8E">
+               <a href="resetpasswd.php" style="color: inherit; text-decoration: none">
+                Mot de passe oublié ?
+               </a>
+            </div>
 
             <div class="login">
               <input type="submit" name="connexion" value="Se connecter"/>

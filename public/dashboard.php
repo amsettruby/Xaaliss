@@ -1,7 +1,8 @@
 <?php
-    include "../config/config.php";
-    include_once "../includes/fonction.php";
-    include "../actions/logout.php";
+require_once __DIR__ . '/../config/config.php';
+include_once "../includes/fonction.php";
+include "../actions/logout.php";
+/** @var PDO $pdo */
 
     if (session_status() === PHP_SESSION_NONE) session_start();
     $id = $_SESSION['id'] ?? null;
@@ -25,7 +26,7 @@
         $debtData = $detteprepare->fetchAll(PDO::FETCH_ASSOC);
         if (count($debtData) == 0) {
             $nodebt = true;
-        };
+        }
 
         $totalDebt = 0;
 
@@ -39,7 +40,7 @@
         $creanceData = $creanceprepare->fetchAll(PDO::FETCH_ASSOC);
         if (count($creanceData) == 0) {
             $nocreance = true;
-        };
+        }
         
         $totalCreance = 0;
 
@@ -58,7 +59,7 @@
         }
 //AJOUTER UNE NOUVELLE CREANCE
         if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add-creance'])) {
-            if (isset($_POST['nom']) && isset($_POST['montant']) && !empty($_POST['nom']) && !empty($_POST['montant'])) {
+            if (!empty($_POST['nom']) && !empty($_POST['montant'])) {
                 $nom = trim($_POST['nom']);
                 $montant = $_POST['montant'];
 
@@ -95,7 +96,7 @@
 //AJOUTER UNE NOUVELLE DETTE
         if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add-dette'])) {
 
-            if (isset($_POST['nom']) && isset($_POST['montant']) && !empty($_POST['nom']) && !empty($_POST['montant'])) {
+            if (!empty($_POST['nom']) && !empty($_POST['montant'])) {
                 $nom = trim($_POST['nom']);
                 $montant = $_POST['montant'];
 
@@ -172,6 +173,16 @@
                 $deletePrepared->execute([
                     ':id' => $_POST['id'],
                 ]);
+
+                // echo '
+                //     <script>
+                //         document.addEventListener("DOMContentLoaded", function () {
+                //             document.addEventListener("click", function(e) {
+                //                 if(e.target.id == "confirm-delete") document.getElementById("'.$_POST['id'].'").remove()
+                //             })
+                //         })
+                //     </script>
+                // ';
                 header('Location: dashboard.php?dettes=Dettes');
                 exit;
             }
@@ -185,10 +196,19 @@
                 $deletePrepared->execute([
                     ':id' => $_POST['id'],
                 ]);
+
+                // echo '
+                //     <script>
+                //         document.addEventListener("DOMContentLoaded", function () {
+                //             document.addEventListener("click", function(e) {
+                //                 if(e.target.id == "confirm-delete") document.getElementById("'.$_POST['id'].'").remove()
+                //             })
+                //         })
+                //     </script>
+                // ';
                 header('Location: dashboard.php?creances=Creances');
                 exit;
             }
         }
         include_once '../public/index.php';
     }
-?>

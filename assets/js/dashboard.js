@@ -5,27 +5,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const creanceModal = document.getElementById("creance-modal");
     const detteModal = document.getElementById("dette-modal");
 
-    if (event.target.id == "logout" || event.target.id == "disconnect") {
+    if (event.target.id === "logout" || event.target.id === "disconnect") {
       disconnectModal.style.display = "flex";
-    } else if (event.target.id == "cancel") {
+    } else if (event.target.id === "cancel") {
       const parent =
         event.target.parentElement.parentElement.parentElement.parentElement;
       parent.style.display = "none";
     }
-    if (event.target.id == "non") disconnectModal.style.display = "none";
+    if (event.target.id === "non") disconnectModal.style.display = "none";
 
-    if (event.target.id == "close") {
+    if (event.target.id === "close") {
       const parent = event.target.parentElement.parentElement;
       parent.style.display = "none";
     }
 
-    if (event.target.id == "ajouter-dette") {
+    if (event.target.id === "ajouter-dette") {
       document.getElementById("dette-modal").style.display = "flex";
-    } else if (event.target.id == "ajouter-creance") {
+    } else if (event.target.id === "ajouter-creance") {
       document.getElementById("creance-modal").style.display = "flex";
     }
 
-    if (event.target.id == "edit-creance") {
+    if (event.target.id === "edit-creance") {
       const input = document.getElementById("id");
       input.value = event.target.parentElement.id;
       document.getElementById("ajouter").name = "edit-creance";
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       editModal.style.display = "flex";
     }
 
-    if (event.target.id == "edit-dette") {
+    if (event.target.id === "edit-dette") {
       const input = document.getElementById("id");
       // console.log(input.parentNode)
       const div = document.getElementById("div");
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       editModal.style.display = "flex";
     }
 
-    if (event.target.id == "delete-dette") {
+    if (event.target.id === "delete-dette") {
       const id = event.target.parentElement.id;
       const input = document.getElementById("dette-id");
       input.value = id;
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("delete-dettes").style.display = "flex";
     }
 
-    if (event.target.id == "delete-creance") {
+    if (event.target.id === "delete-creance") {
       const id = event.target.parentElement.id;
       const input = document.getElementById("creance-id");
       input.value = id;

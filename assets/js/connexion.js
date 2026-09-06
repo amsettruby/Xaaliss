@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   toggleVisibility.addEventListener("click", () => {
 
-    if (input.type == "password") {
+    if (input.type === "password") {
       toggleVisibility.className = "bi bi-eye-slash";
       input.type = "text";
     } else {

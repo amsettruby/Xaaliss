@@ -60,7 +60,7 @@
               </div>
             </div>  
             <div class="input-group">
-              <label for="passwd">Repeter le mot de passe</label>
+              <label for="passwd-chk">Repeter le mot de passe</label>
               <div class="input-field rpasswd">
                 <i class="bi bi-lock"></i>
                 <input type="password" name="passwd-confirm" id="passwd-chk" class="form-control" required/>
