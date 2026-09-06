@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . "/../actions/resetpasswd.php";
 session_start();
-$_SESSION['mailSent'] = false;
+//$_SESSION['mailSent'] = false;
 ?>
 
 <!doctype html>
@@ -16,12 +16,9 @@ $_SESSION['mailSent'] = false;
 <body>
     <section class='main'>
         <?php
-        echo $_SESSION['mailSent'];
-        if(isset($_SESSION['mailSent'])) {
-            if($_SESSION['mailSent'] === true) {
-                echo "<p>Si l'adresse mail fournie existe, nous y avons envoyé un lien de reinitialisation du mot de passe.</br>Si vous ne recevez rien, consulter egalement vos spams.</p>";
-                unset($_SESSION['mailSent']);
-            }
+        if(isset($_SESSION['mailSent']) && $_SESSION['mailSent']) {
+            echo "<p>Si l'adresse mail fournie existe, nous y avons envoyé un lien de reinitialisation du mot de passe.</br>Si vous ne recevez rien, consulter egalement vos spams.</p>";
+            unset($_SESSION['mailSent']);
         } else {
             echo '
                 <section class="formulaires">

@@ -12,19 +12,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['valider'])){
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':token', $token);
         $stmt->execute();
-        $stmt->fetch();
+        $data = null;
+        $resetData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($stmt->rowCount() > 0 && time() < $stmt['expiry']){
+        if($resetData && time() < $resetData['expiry']){
             $sql = "UPDATE utilisateurs SET passwd = :newPasswd WHERE email = :email";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':email', $stmt['email']);
+            $stmt->bindParam(':email', $resetData['mail']);
             $stmt->bindParam(':newPasswd', $newPasswd);
-            $stmt->execute();
-            if($stmt->rowCount() > 0){
+            $stmt->execute();;
+
+            if($stmt->execute()){
+                session_start();
                 $_SESSION['done'] = true;
+                $removeTkSql = "DELETE FROM reset WHERE token = :token";
+                $stmt = $pdo->prepare($removeTkSql);
+                $stmt->bindParam(':token', $token);
+                $stmt->execute();
+                if($stmt->execute()){
+                    header('Location: ../public/resetlink.php');
+                    exit;
+                }
             }
-            header('Location: ../public/resetlink.php');
-            exit;
         }
     }
 }

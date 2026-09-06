@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['send-link'])){
     $preparedSql->execute();
 
     if($preparedSql->rowCount() > 0) {
-        $resend = Resend::client('API_TOKEN_KEY');
+        $resend = Resend::client('TOKEN_API');
 
         $result = $resend->emails->send([
             'from' => 'Acme <onboarding@resend.dev>',
@@ -30,7 +30,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['send-link'])){
         ]);
 
         if($result['id'] !== "") {
+            session_start();
             $_SESSION['mailSent'] = true;
+            echo $_SESSION['mailSent'];
             header('Location: ../public/resetpasswd.php');
             exit;
         }
