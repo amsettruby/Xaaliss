@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['send-link'])){
     $preparedSql->execute();
 
     if($preparedSql->rowCount() > 0) {
-        $resend = Resend::client('re_U7hkaQg6_PCKAZPTg6qrKmky5n1o5hodB');
+        $resend = Resend::client('API_TOKEN');
 
         $result = $resend->emails->send([
             'from' => 'Acme <onboarding@resend.dev>',
