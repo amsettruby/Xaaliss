@@ -134,13 +134,14 @@ include "../actions/logout.php";
         if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-creance'])) {
             if (!empty($_POST['id']) && !empty($_POST['nom']) && !empty($_POST['montant'])) {
                 // La clause WHERE id = :id est essentielle pour ne cibler qu'une seule créance
-                $updateSql = "UPDATE creances SET nom = :nom, montant = :montant WHERE id = :id";
+                $updateSql = "UPDATE creances SET nom = :nom, montant = :montant WHERE id = :id AND userID = :userID";
                 $updatePrepared = $pdo->prepare($updateSql);
                 
                 $updatePrepared->execute([
                     ':nom' => $_POST['nom'],
                     ':montant' => $_POST['montant'],
-                    ':id' => $_POST['id']
+                    ':id' => $_POST['id'],
+                    ':userID' => $_SESSION['id'],
                 ]);
 
                 header('Location: dashboard.php?creances=Creances');
@@ -151,13 +152,14 @@ include "../actions/logout.php";
         if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-dette'])) {
             if (!empty($_POST['id']) && !empty($_POST['nom']) && !empty($_POST['montant'])) {
                 // La clause WHERE id = :id est essentielle pour ne cibler qu'une seule créance
-                $updateSql = "UPDATE dettes SET nom = :nom, montant = :montant WHERE id = :id";
+                $updateSql = "UPDATE dettes SET nom = :nom, montant = :montant WHERE id = :id AND userID = :userID";
                 $updatePrepared = $pdo->prepare($updateSql);
                 
                 $updatePrepared->execute([
                     ':nom' => $_POST['nom'],
                     ':montant' => $_POST['montant'],
-                    ':id' => $_POST['id']
+                    ':id' => $_POST['id'],
+                    'userID' => $_SESSION['id']
                 ]);
 
                 header('Location: dashboard.php?dettes=Dettes');
@@ -168,10 +170,11 @@ include "../actions/logout.php";
         if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete-dette'])) {
 
             if(!empty($_POST['id'])) {
-                $sql = "DELETE FROM dettes WHERE id = :id";
+                $sql = "DELETE FROM dettes WHERE id = :id AND userID = :userID";
                 $deletePrepared = $pdo->prepare($sql);
                 $deletePrepared->execute([
                     ':id' => $_POST['id'],
+                    ':userID' => $_SESSION['id'],
                 ]);
 
                 // echo '
@@ -191,10 +194,11 @@ include "../actions/logout.php";
         if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete-creance'])) {
 
             if(!empty($_POST['id'])) {
-                $sql = "DELETE FROM creances WHERE id = :id";
+                $sql = "DELETE FROM creances WHERE id = :id AND userID = :userID";
                 $deletePrepared = $pdo->prepare($sql);
                 $deletePrepared->execute([
                     ':id' => $_POST['id'],
+                    ':userID' => $_SESSION['id'],
                 ]);
 
                 // echo '
